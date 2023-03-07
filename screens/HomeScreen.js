@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View , SafeAreaView, Image } from 'react-native'
+import { StyleSheet, Text, View , SafeAreaView, Image, ScrollView } from 'react-native'
 import React from 'react'
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {GOOGLE_MAPS_APIKEY} from "@env"
+import {GOOGLE_MAPS_KEY} from "@env"
+import { useDispatch } from 'react-redux';
+import { setDestination, setOrigin } from '../slices/navSlice';
+
 const HomeScreen = () => {
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
       <View style={tw`p-5`}>
@@ -19,22 +23,35 @@ const HomeScreen = () => {
         }}
         > 
         </Image>
+
         <GooglePlacesAutocomplete
           placeholder='Where from'
-          nearbyPlacesAPI='GooglePlacesSearch'
-          debounce={400}
           styles={{
             container: {
-              flex: 0,
+              flex: 0
             },
             textInput: {
               fontSize: 18
             }
           }}
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: 'en',
+          onPress={(data , detail = null) => {
+            dispatch(setOrigin({
+              location: detail.geometry.location,
+              description : data.description
+            }));
+            dispatch(setDestination(null));
+            console.log(detail)
           }}
+          onFail={error => console.error(error)}
+          fetchDetails={true}
+          enablePoweredByContainer={false}
+          minLength={2}
+          query={{
+            key: GOOGLE_MAPS_KEY,
+            language: 'en'
+          }}
+          nearbyPlacesAPI='GooglePlacesSearch'
+          debounce={400}
         />
         <NavOptions />
       </View>

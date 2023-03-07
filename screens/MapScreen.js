@@ -1,11 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import MapView from 'react-native-maps';
+import tw from 'twrnc';
+import { selectOrigin } from '../slices/navSlice';
+import { useSelector } from 'react-redux';
 
 const MapScreen = () => {
+  const origin = useSelector(selectOrigin); 
   return (
-    <View>
-      <Text>MapScreen</Text>
-    </View>
+    <MapView
+    style={tw`flex-1`}
+    initialRegion={{
+      latitude: origin.location.lat,
+      longitude: origin.location.lng,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
+    }}
+  />
   )
 }
 

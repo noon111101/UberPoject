@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import { store } from './store';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MapScreen from './screens/MapScreen';
+import EatScreen from './screens/EatScreen';
 
 
 
@@ -24,13 +25,20 @@ export default function App() {
               headerShown:true
             }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
             name='MapScreen'
             component={MapScreen}
             options={{
               headerShown:false
             }}
-            /> */}
+            />
+            <Stack.Screen
+            name='EatScreen'
+            component={EatScreen}
+            options={{
+              headerShown:false
+            }}
+            />
           </Stack.Navigator>
           
         </SafeAreaProvider>
