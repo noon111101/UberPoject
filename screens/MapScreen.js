@@ -1,22 +1,37 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import MapView from 'react-native-maps';
 import tw from 'twrnc';
-import { selectOrigin } from '../slices/navSlice';
-import { useSelector } from 'react-redux';
+import Map from '../components/Map';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NavigateCard from '../components/NavigateCard';
+import GetRide from '../components/GetRide';
 
 const MapScreen = () => {
-  const origin = useSelector(selectOrigin); 
+  const Stack = createNativeStackNavigator();
   return (
-    <MapView
-    style={tw`flex-1`}
-    initialRegion={{
-      latitude: origin.location.lat,
-      longitude: origin.location.lng,
-      latitudeDelta: 0.005,
-      longitudeDelta: 0.005,
-    }}
-  />
+    <View>
+      <View style={tw`h-1/2`}>
+        <Map/>
+      </View>
+      <View style={tw`h-1/2`}>
+        <Stack.Navigator>
+            <Stack.Screen
+            name='NavigateCard'
+            component={NavigateCard}
+            options={{
+              headerShown:false
+            }}
+            />
+            <Stack.Screen
+            name='GetRide'
+            component={GetRide}
+            options={{
+              headerShown:false
+            }}
+            />
+            </Stack.Navigator>
+      </View>
+    </View>
   )
 }
 

@@ -25,7 +25,7 @@ const HomeScreen = () => {
         </Image>
 
         <GooglePlacesAutocomplete
-          placeholder='Where from'
+          placeholder='Bạn muốn đi đâu ?'
           styles={{
             container: {
               flex: 0
@@ -39,6 +39,7 @@ const HomeScreen = () => {
               location: detail.geometry.location,
               description : data.description
             }));
+            console.log(GOOGLE_MAPS_KEY)
             dispatch(setDestination(null));
             console.log(detail)
           }}
